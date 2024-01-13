@@ -44,22 +44,29 @@ a:visited   {
     color: #fff;
 }
 
+.w-50 {
+    width: 50%;
+}
 
 /* header */
 
 .notification-bar   {
     text-align: center;
     position:   relative;
+
+}
+.notification-bar .container:first-child {
     color: #222;
     font-family: Roboto;
     font-size: 14px;
     padding: 10px;
 }
-
+#notiBar .container a,
 .green-a {
     color: var(--accent-color);
 }
 
+#notiBar .container a:hover,
 .green-a:hover {
     text-decoration: none;
 }
@@ -557,6 +564,8 @@ nav form input[type="text"] {
 
 .social-section {
     width: 100%;
+    gap: 15px;
+    margin-top: 25px;
 }
 
 .tweets {
@@ -564,9 +573,16 @@ nav form input[type="text"] {
 }
 
 .fb-page {
-    width: calc(50% - 7px);    
+    width: calc(50% - 7px); 
+    /* height: 600px;   
+    overflow: hidden; */
 }
 
+.fb-page iframe  {
+    width: 100% !important;
+    height: 400px;
+    margin-left: 40px;
+}
 
 
 
@@ -665,9 +681,18 @@ footer > .container {
     text-align: center;
 }
 
+.disclaimer {
+    width: 100%;
+    background-color: var(--bg-dark-color);
+    background-image: url('../images/pattern-bg.png');
+    background-size: 100px;
+
+}
 
 
-
+.disclaimer .container {
+    padding: 20px 0 ; 
+}
 
 
 
@@ -732,7 +757,69 @@ footer > .container {
     font-weight: 500;
 }
 
+.event-wrapper {
+    padding: 15px 0 6px 18px;
+    gap: 8px;
+}
 
+.event-thumbnail {
+    width: 60px;
+    height: 70px;
+}
+
+.event-thumbnail img {
+    width: 100%;
+    height: 100%;
+}
+
+.event-content {
+    flex-direction: column;
+}
+
+.event-title a,
+.event-title a:hover,
+.event-title a:active {
+    color: #FFF;
+    font-family: Oswald;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-decoration-line: underline;
+}
+
+.event-title a:hover {
+    text-decoration-line: none;
+}
+
+.event-year,
+.event-s-time,
+.event-e-time {
+    font-family: Roboto;
+    font-size: 14px;   
+}
+
+
+.event-pagination {
+    padding: 18px;    
+}
+
+.page-numbers {
+
+}
+
+.page-numbers.current {
+
+}
+
+.next.page-numbers {
+    background-color: var(--bg-dark-color);
+    padding: 2px 5px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 2.25rem;
+
+}
 /* categories */
 
 .cat-content > ul {

@@ -90,29 +90,21 @@ wp_head();
         <div class="social-section flex">
                 <!-- Lates Tweets -->
                 <div class="tweets">
-                <?php if (is_active_sidebar('lates-tweets')) { dynamic_sidebar('lates-tweets'); };?>
+                        <?php if (is_active_sidebar('lates-tweets')) { 
+                                dynamic_sidebar('lates-tweets'); 
+                                }
+                        ?>
                 </div>
 
                 <!-- Facebook Page -->
-                <div class="fb">
-                <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FiCodeguru%2Fvideos&tabs=timeline&width=%20&height=500&small_header=false&adapt_container_width=false&hide_cover=false&show_facepile=false&appId" width=" " height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>                
+                <div class="fb-page">
                         
                 <?php 
-
-                        // if (is_active_sidebar('fb-page')) {
-                        // dynamic_sidebar('fb-page');
-                        // }
+                        if (is_active_sidebar('fb-page')) {
+                        dynamic_sidebar('fb-page');
+                        }
                 ?>
                 </div>
-        </div>
-        <div class="tweets">
-    <iframe 
-        width="560" 
-        height="315" 
-        src="https://twitframe.com/show?url=https://twitter.com/" 
-        frameborder="0" 
-        allowfullscreen
-    ></iframe>
-</div>    
+        </div>  
 
 

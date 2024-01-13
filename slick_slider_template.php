@@ -59,7 +59,7 @@ get_header();
 
                         <div class="right-hero-section flex">
                             <div class="popup-wraper flex" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/video-thumbnail-img.png');" >                                
-                            <a href="https://youtu.be/SBy0ION3wuo?si=VrhcKhqBIf0pMzyE" class="flex" data-fancybox="gallery">
+                            <a href="<?php $youtube_video = get_option('field_4'); echo esc_attr($youtube_video);  ?>" class="flex" data-fancybox="gallery">
                                     <img src="<?= get_template_directory_uri(); ?>/assets/images/play-icon.png" alt="img">
                                 </a>
                             </div>

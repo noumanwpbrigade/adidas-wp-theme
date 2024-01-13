@@ -29,7 +29,6 @@
 
             <div class="footer-links-widget"> 
                 <h4>Important Links</h4>
-                <iframe src="<?php echo esc_url($facebook_iframe_src); ?>" width="340" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
 
                 <?php 
                 if (is_active_sidebar('footer-links')) {
@@ -63,6 +62,14 @@
                        </div>
             <?php  } ?>
 
+            </div>
+        </div>
+        <div class="disclaimer">
+            <div class="container">
+                Disclaimer: <?php
+                $disclaimer = get_option('field_5');
+                echo esc_html($disclaimer);
+                ?>
             </div>
         </div>
 	</footer><!-- #colophon -->

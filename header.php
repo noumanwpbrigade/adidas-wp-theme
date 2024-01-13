@@ -24,8 +24,14 @@
 <?php wp_body_open(); ?>
 <header>
             <div class="notification-bar" id="notiBar">
-                LIVE RACE STREAM FROM GATOR NATIONALS IN SARASOTA, FL/ <a href="#" class="green-a">WATCH NOW</a>
-                <div id="cross-btn" onclick="closenoti();"><img src="<?= get_template_directory_uri(); ?>/assets/images/x-mark.png" alt=""></div>
+                <div class="container">
+                    <?php 
+                    $value = get_option('field_1');
+                    echo esc_attr($value);  
+                    ?>
+                    <a href="<?php $url = get_option('field_2'); echo esc_attr($url);  ?>" class="green-a"> <?php $urltext = get_option('field_3'); echo esc_attr($urltext);  ?> </a>
+                    <div id="cross-btn" onclick="closenoti();"><img src="<?= get_template_directory_uri(); ?>/assets/images/x-mark.png" alt=""></div>
+                </div>
             </div>
 
             <div class="top-nav">

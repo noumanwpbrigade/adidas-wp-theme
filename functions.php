@@ -23,10 +23,11 @@ function adidas_theme_scripts() {
     // <script src="./plugins/jquery.fancybox.min.js"></script>
     // <script src="./plugins/fancyBox.js"></script>
 
-    wp_enqueue_script('script-file', get_template_directory_uri().'/assets/js/script.js', array(), 1.0, true);
+    wp_enqueue_script('script-file', get_template_directory_uri().'/assets/js/script.js', array('jQuery'), 1.0, true);
 	// FancyBox
-    wp_enqueue_script('script-file', get_template_directory_uri().'/assets/js/script.js', array('jQuery'), 1.0, true);
-    wp_enqueue_script('script-file', get_template_directory_uri().'/assets/js/script.js', array('jQuery'), 1.0, true);
+    wp_enqueue_script('fancy-jquery', 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js', 1.0);
+    wp_enqueue_style('fancy-stylesheet', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css', 1.0);
+    wp_enqueue_script('fancy-js', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', array('fancy-jquery'), '3.5.7', true);
 }
 
 add_action('wp_enqueue_scripts', 'adidas_theme_scripts');
@@ -454,12 +455,574 @@ function post_for_second_slider() {
 	*/
 	  
 	add_action( 'init', 'post_for_second_slider', 0 );
+	//	===== second slider =====
+
+	// custome post for events
+	// Register Custom Post Type
+// Register Custom Post Type
+// custom post for events
+function event_custom_post_type() {
+    $labels = array(
+        'name'                  => _x( 'Events', 'Post Type General Name', 'event' ),
+        'singular_name'         => _x( 'Event', 'Post Type Singular Name', 'event' ),
+        'menu_name'             => __( 'Add Event', 'event' ),
+        'name_admin_bar'        => __( 'Add Event', 'event' ),
+        'archives'              => __( 'Item Archives', 'event' ),
+        'attributes'            => __( 'Item Attributes', 'event' ),
+        'parent_item_colon'     => __( 'Parent Item:', 'event' ),
+        'all_items'             => __( 'All Events', 'event' ),
+        'add_new_item'          => __( 'Add New Event', 'event' ),
+        'add_new'               => __( 'Add New Event', 'event' ),
+        'new_item'              => __( 'New Item', 'event' ),
+        'edit_item'             => __( 'Edit Item', 'event' ),
+        'update_item'           => __( 'Update Item', 'event' ),
+        'view_item'             => __( 'View Item', 'event' ),
+        'view_items'            => __( 'View Items', 'event' ),
+        'search_items'          => __( 'Search Item', 'event' ),
+        'not_found'             => __( 'Not found', 'event' ),
+        'not_found_in_trash'    => __( 'Not found in Trash', 'event' ),
+        'featured_image'        => __( 'Featured Image', 'event' ),
+        'set_featured_image'    => __( 'Set featured image', 'event' ),
+        'remove_featured_image' => __( 'Remove featured image', 'event' ),
+        'use_featured_image'    => __( 'Use as featured image', 'event' ),
+        'insert_into_item'      => __( 'Insert into item', 'event' ),
+        'uploaded_to_this_item' => __( 'Uploaded to this item', 'event' ),
+        'items_list'            => __( 'Items list', 'event' ),
+        'items_list_navigation' => __( 'Items list navigation', 'event' ),
+        'filter_items_list'     => __( 'Filter items list', 'event' ),
+    );
+
+    $rewrite = array(
+        'slug'                  => 'event',
+        'with_front'            => true,
+        'pages'                 => true,
+        'feeds'                 => true,
+    );
+
+    $args = array(
+        'label'                 => __( 'Event', 'event' ),
+        'description'           => __( 'Event custom post type with advanced options', 'event' ),
+        'labels'                => $labels,
+        'supports'              => array( 'title', 'editor', 'thumbnail', 'comments', 'revisions', 'custom-fields', 'page-attributes', 'post-formats' ),
+        'taxonomies'            => array( 'category', 'post_tag' ),
+        'hierarchical'          => false,
+        'public'                => true,
+        'show_ui'               => true,
+        'show_in_menu'          => true,
+        'menu_position'         => 5,
+        'menu_icon'             => 'dashicons-nametag',
+        'show_in_admin_bar'     => true,
+        'show_in_nav_menus'     => true,
+        'can_export'            => true,
+        'has_archive'           => 'events',
+        'exclude_from_search'   => false,
+        'publicly_queryable'    => true,
+        'rewrite'               => $rewrite,
+        'capability_type'       => 'post',
+        'show_in_rest'          => true,
+    );
+
+    register_post_type( 'event_post', $args );
+}
+add_action( 'init', 'event_custom_post_type', 0 );
+
+// meta boxes of events custom post type
+class WP_Skills_MetaBox_Events {
+    private $screen = array(
+        'event_post',
+    );
+
+    private $meta_fields = array(
+        array(
+            'label'   => 'Year of Publish',
+            'id'      => 'event_date',
+            'type'    => 'date',
+            'default' => '',
+        ),
+        array(
+            'label'   => 'Starting Time',
+            'id'      => 'event_s_time',
+            'type'    => 'text',
+            'default' => '',
+        ),
+        array(
+            'label'   => 'Ending Time',
+            'id'      => 'event_e_time',
+            'type'    => 'text',
+            'default' => '',
+        )
+    );
+
+    public function __construct() {
+        add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
+        add_action( 'admin_footer', array( $this, 'media_fields' ) );
+        add_action( 'save_post', array( $this, 'save_fields' ) );
+    }
+
+    public function add_meta_boxes() {
+        foreach ( $this->screen as $single_screen ) {
+            add_meta_box(
+                'Events',
+                __( 'Events', 'event' ),
+                array( $this, 'meta_box_callback' ),
+                $single_screen,
+                'normal',
+                'default'
+            );
+        }
+    }
+
+    public function meta_box_callback( $post ) {
+        wp_nonce_field( 'Events_data', 'Events_nonce' );
+        echo '';
+        $this->field_generator( $post );
+    }
+
+    public function media_fields() { ?>
+        <script>
+            jQuery(document).ready(function($) {
+                if (typeof wp.media !== 'undefined') {
+                    var _custom_media = true,
+                        _orig_send_attachment = wp.media.editor.send.attachment;
+                    $('.new-media').click(function(e) {
+                        var send_attachment_bkp = wp.media.editor.send.attachment;
+                        var button = $(this);
+                        var id = button.attr('id').replace('_button', '');
+                        _custom_media = true;
+                        wp.media.editor.send.attachment = function(props, attachment) {
+                            if (_custom_media) {
+                                if ($('input#' + id).data('return') == 'url') {
+                                    $('input#' + id).val(attachment.url);
+                                } else {
+                                    $('input#' + id).val(attachment.id);
+                                }
+                                $('div#preview' + id).css('background-image', 'url(' + attachment.url + ')');
+                            } else {
+                                return _orig_send_attachment.apply(this, [props, attachment]);
+                            };
+                        }
+                        wp.media.editor.open(button);
+                        return false;
+                    });
+                    $('.add_media').on('click', function() {
+                        _custom_media = false;
+                    });
+                    $('.remove-media').on('click', function() {
+                        var parent = $(this).parents('td');
+                        parent.find('input[type="text"]').val('');
+                        parent.find('div').css('background-image', 'url()');
+                    });
+                }
+            });
+        </script>
+    <?php 
+    }
+
+    public function field_generator( $post ) {
+        $output = '';
+        foreach ( $this->meta_fields as $meta_field ) {
+            $label = '<label for="' . $meta_field['id'] . '">' . $meta_field['label'] . '</label>';
+            $meta_value = get_post_meta( $post->ID, $meta_field['id'], true );
+            if ( empty( $meta_value ) ) {
+                if ( isset( $meta_field['default'] ) ) {
+                    $meta_value = $meta_field['default'];
+                }
+            }
+            switch ( $meta_field['type'] ) {
+                case 'text':
+                case 'date':
+                    $input = sprintf(
+                        '<input %s id="%s" name="%s" type="%s" value="%s">',
+                        $meta_field['type'] !== 'color' ? 'style="width: 100%"' : '',
+                        $meta_field['id'],
+                        $meta_field['id'],
+                        $meta_field['type'],
+                        $meta_value
+                    );
+                    break;
+                default:
+                    $input = '';
+            }
+            $output .= $this->format_rows( $label, $input );
+        }
+        echo '<table class="form-table"><tbody>' . $output . '</tbody></table>';
+    }
+
+    public function format_rows( $label, $input ) {
+        return '<tr><th>' . $label . '</th><td>' . $input . '</td></tr>';
+    }
+
+    public function save_fields( $post_id ) {
+        if ( ! isset( $_POST['Events_nonce'] ) ) {
+            return $post_id;
+        }
+        $nonce = $_POST['Events_nonce'];
+        if ( ! wp_verify_nonce( $nonce, 'Events_data' ) ) {
+            return $post_id;
+        }
+        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+            return $post_id;
+        }
+        foreach ( $this->meta_fields as $meta_field ) {
+            if ( isset( $_POST[ $meta_field['id'] ] ) ) {
+                switch ( $meta_field['type'] ) {
+                    case 'text':
+                        $_POST[ $meta_field['id'] ] = sanitize_text_field( $_POST[ $meta_field['id'] ] );
+                        break;
+                    case 'date':
+                        $_POST[ $meta_field['id'] ] = sanitize_text_field( $_POST[ $meta_field['id'] ] );
+                        break;
+                }
+                update_post_meta( $post_id, $meta_field['id'], $_POST[ $meta_field['id'] ] );
+            } else if ( $meta_field['type'] === 'checkbox' ) {
+                update_post_meta( $post_id, $meta_field['id'], '0' );
+            }
+        }
+    }
+}
+
+if ( class_exists( 'WP_Skills_MetaBox_Events' ) ) {
+    new WP_Skills_MetaBox_Events;
+}
+
+
 
 
 	// adding themem options page -------------------------------------------------------------------------------------------------------------
 	// functions.php
+    // code for custom menu admin page
+    /**
+ * Register a custom menu page.
+ */
+
+ // setp 1. theme_setting_page() > add_menu_page() > there callback function theme_options_cllback()
+ // setp 2. Register settings :
+ // step 3. Add field
+        function theme_setting_page() {
+            add_menu_page(
+                __( 'Custom Menu Title', 'textdomain' ),
+                'Theme Options', // name display in admin menu
+                'manage_options', // who added
+                'theme-setting', // slug
+                'theme_options_cllback', // callback
+                'dashicons-admin-site-alt2', // dashicons from https://developer.wordpress.org/resource/dashicons/#admin-site-alt2
+                6
+            );
+        }
+        add_action( 'admin_menu', 'theme_setting_page' );
+
+        function theme_options_cllback() {
+            // echo "hello wordpress developer";
+            // novalidate="novalidate" :it is used to disable the browser's built-in form validation.
+            ?>
+            <div class="container">
+                <h1>Theme Options Page</h1>
+                <h3>Add settings for different options</h3>
+                <form action="options.php" method="post" novalidate="novalidate">
+                    <?php settings_fields('theme-setting'); // slug of parent function ?>
+                    <?php do_settings_fields('theme-setting', 'default'); ?>
 
 
+                    <?php submit_button();   ?>
+                </form>
+            </div>
+            <?php }
+
+             // setp 2. Register settings
+                // notification 
+             function theme_register_settings() {
+                $args = array(
+                        'type'              => 'string',
+                        'sanitize_callback' => 'sanitize_text_field',  // default wp function
+                        'default'           => NULL,
+                );
+                // 3 parameters: 1:option-grup > do_settings_fields('theme-setting', 'default') / 2: field name/ 3: argument
+                register_setting('theme-setting', 'field_1', $args );
+
+                 // step 3. Add field
+                 add_settings_field(    // 4 compulsory option/parameter (id, title, callback, slug/page) and other kips default
+                    'field_1',     // $field > id from 
+                    esc_html__('Notification text', 'default'),  // title
+                    'wp_settings_cllback', // callback
+                    'theme-setting' // slug / from settings_fields('theme-setting')
+                    
+                 );
+
+                 // notification link
+                 $argslink = array(
+                            'type'              => 'string',
+                            'sanitize_callback' => 'sanitize_text_field',  // default wp function
+                            'default'           => NULL,
+                    );
+                    // 3 parameters: 1:option-grup > do_settings_fields('theme-setting', 'default') / 2: field name/ 3: argument
+                    register_setting('theme-setting', 'field_2', $argslink );
+
+                    // step 3. Add field
+                    add_settings_field(    // 4 compulsory option/parameter (id, title, callback, slug/page) and other kips default
+                        'field_2',     // $field > id from 
+                        esc_html__('Put Link for Notification', 'default'),  // title
+                        'wp_noti_url_cllback', // callback
+                        'theme-setting' // slug / from settings_fields('theme-setting')
+                    );
+                // link/url text
+                $args = array(
+                    'type'              => 'string',
+                    'sanitize_callback' => 'sanitize_text_field',  // default wp function
+                    'default'           => NULL,
+                    );
+                    // 3 parameters: 1:option-grup > do_settings_fields('theme-setting', 'default') / 2: field name/ 3: argument
+                    register_setting('theme-setting', 'field_3', $args );
+
+                    // step 3. Add field
+                    add_settings_field(    // 4 compulsory option/parameter (id, title, callback, slug/page) and other kips default
+                        'field_3',     // $field > id from 
+                        esc_html__('Text for your above Link', 'default'),  // title
+                        'wp_noti_url_text_cllback', // callback
+                        'theme-setting' // slug / from settings_fields('theme-setting')
+                    );
+
+
+                    // Youtube Video Link For popup
+                $args = array(
+                    'type'              => 'string',
+                    'sanitize_callback' => 'sanitize_text_field',  // default wp function
+                    'default'           => NULL,
+                    );
+                    // 3 parameters: 1:option-grup > do_settings_fields('theme-setting', 'default') / 2: field name/ 3: argument
+                    register_setting('theme-setting', 'field_4', $args );
+
+                    // step 3. Add field
+                    add_settings_field(    // 4 compulsory option/parameter (id, title, callback, slug/page) and other kips default
+                        'field_4',     // $field > id from 
+                        esc_html__('Youtube Video Link For popup', 'default'),  // title
+                        'wp_yt_url_cllback', // callback
+                        'theme-setting' // slug / from settings_fields('theme-setting')
+                    );
+
+                    // Footer Disclaimer 
+
+                    $args = array(
+                        'type'              => 'string',
+                        'sanitize_callback' => 'sanitize_text_field',  // default wp function
+                         'default'           => NULL,
+                        );
+                        // 3 parameters: 1:option-grup > do_settings_fields('theme-setting', 'default') / 2: field name/ 3: argument
+                        register_setting('theme-setting', 'field_5', $args );
+    
+                        // step 3. Add field
+                        add_settings_field(    // 4 compulsory option/parameter (id, title, callback, slug/page) and other kips default
+                            'field_5',     // $field > id from 
+                            esc_html__('Footer Disclaimer Notification', 'default'),  // title
+                            'wp_footer_disclaimer_callback', // callback
+                            'theme-setting' // slug / from settings_fields('theme-setting')
+                        );
+
+                        // Tab 1 heading 
+                        $args = array(
+                            'type'              => 'string',
+                            'sanitize_callback' => 'sanitize_text_field',  // default wp function
+                             'default'           => NULL,
+                            );
+                            register_setting('theme-setting', 'field_6', $args );
+        
+                            // step 3. Add field
+                            add_settings_field(    
+                                'field_6',     // $field > id from 
+                                esc_html__('First Tab Heading', 'default'),  // title
+                                'wp_tab1_callback', // callback
+                                'theme-setting' 
+                            );
+                        // Tab 2 heading 
+                        $args = array(
+                            'type'              => 'string',
+                            'sanitize_callback' => 'sanitize_text_field',  // default wp function
+                             'default'           => NULL,
+                            );
+                            register_setting('theme-setting', 'field_7', $args );
+        
+                            // step 3. Add field
+                            add_settings_field(    
+                                'field_7',     
+                                esc_html__('Second Tab Heading', 'default'),  // title
+                                'wp_tab2_callback', // callback
+                                'theme-setting'
+                            );
+                        // Tab 3 heading 
+                        $args = array(
+                            'type'              => 'string',
+                            'sanitize_callback' => 'sanitize_text_field',  // default wp function
+                             'default'           => NULL,
+                            );
+                            register_setting('theme-setting', 'field_8', $args );
+        
+                            // step 3. Add field
+                            add_settings_field(
+                                'field_8',     // $field > id from 
+                                esc_html__('Third Tab Heading', 'default'),  // title
+                                'wp_tab3_callback', 
+                                'theme-setting' 
+                            );
+
+                         // first tab content 
+                         $args = array(
+                            'type'              => 'string',
+                            'sanitize_callback' => 'sanitize_text_field',  // default wp function
+                             'default'           => NULL,
+                            );
+                            register_setting('theme-setting', 'field_9', $args );
+        
+                            // step 3. Add field
+                            add_settings_field(
+                                'field_9',     // $field > id from 
+                                esc_html__('First Tab Content', 'default'),  // title
+                                'wp_tab1_content_callback', 
+                                'theme-setting' 
+                            );
+
+                             // Second tab content 
+                         $args = array(
+                            'type'              => 'string',
+                            'sanitize_callback' => 'sanitize_text_field',  // default wp function
+                             'default'           => NULL,
+                            );
+                            register_setting('theme-setting', 'field_10', $args );
+        
+                            // step 3. Add field
+                            add_settings_field(
+                                'field_10',     // $field > id from 
+                                esc_html__('Second Tab Content', 'default'),  // title
+                                'wp_tab2_content_callback', 
+                                'theme-setting' 
+                            );
+
+                             // Third tab content 
+                         $args = array(
+                            'type'              => 'string',
+                            'sanitize_callback' => 'sanitize_text_field',  // default wp function
+                             'default'           => NULL,
+                            );
+                            register_setting('theme-setting', 'field_11', $args );
+        
+                            // step 3. Add field
+                            add_settings_field(
+                                'field_11',     // $field > id from 
+                                esc_html__('Third Tab Content', 'default'),  // title
+                                'wp_tab3_content_callback', 
+                                'theme-setting' 
+                            );
+
+
+             } 
+
+             add_action('admin_init', 'theme_register_settings'); // now setting is registered. Q: who to display on page
+?>
+        <!-- <style>
+            .w-50 {
+                width: 50%;
+            }
+        </style> -->
+<?php
+             function wp_settings_cllback() {
+                // getting data from db register_setting('', '', $);
+                $value = get_option('field_1');
+                echo "<span class='spacer' style='margin: 0 15px; '></span>";
+                echo "<textarea class='w-50' name='field_1' style='width: 50%;'>" . esc_textarea($value) . "</textarea>";
+                echo "<br />";
+                echo "<br />";
+
+                // this setting are stored into db 
+             }
+
+             function wp_noti_url_cllback() {
+                $url = get_option('field_2');
+                echo "<span class='spacer' style='margin: 0 15px; '></span>";
+                echo "<input class='w-50' type='text' name='field_2' value='" . esc_attr($url) . "'  style='width: 50%;'> ";
+                echo "<br />";
+                echo "<br />";
+             }
+
+             function wp_noti_url_text_cllback() {
+                $url_text = get_option('field_3');
+                echo "<span class='spacer' style='margin: 0 15px; '></span>";
+                echo "<input class='w-50' type='text' name='field_3' value='" . esc_attr($url_text) . "'  style='width: 50%;'> ";
+                echo "<br />";
+                echo "<br />";
+                echo "<hr />";
+             }
+
+             function wp_yt_url_cllback() {
+                $youtube_video = get_option('field_4');
+                echo "<span class='spacer' style='margin: 0 15px; '></span>";
+                echo "<input class='w-50' type='text' name='field_4' value='" . esc_attr($youtube_video) . "'  style='width: 50%;'> ";
+                echo "<br />";
+                echo "<br />";
+                echo "<hr />";
+                echo "<h3> Footer Disclaimer</h3>";
+             }
+
+             function wp_footer_disclaimer_callback() {
+                $disclaimer = get_option('field_5');
+                echo "<span class='spacer' style='margin: 0 15px; '></span>";
+                echo "<textarea class='w-50' name='field_5' style='width: 50%;'>" . esc_textarea($disclaimer) . "</textarea>";
+                // echo "<input type='text' class='w-50' name='field_5' value = '" .  esc_html($disclaimer) . "'></input>";
+                echo "<br />";
+                echo "<br />";
+                echo "<hr />";
+                echo "<h3> Manage  Tabs Content </h3>";
+            }
+
+             function wp_tab1_callback() {
+                $tab1 = get_option('field_6');
+                echo "<span class='spacer' style='margin: 0 17px; '></span>";
+                echo "<input type='text' class='w-50' name='field_6' value = '" .  esc_html($tab1) . "'></input>";
+                echo "<br />";
+                echo "<br />";
+            }
+
+            function wp_tab2_callback() {
+                $tab2 = get_option('field_7');
+                echo "<span class='spacer' style='margin: 0 8px; '></span>";
+                echo "<input type='text' class='w-50' name='field_7' value = '" .  esc_html($tab2) . "'></input>";
+                echo "<br />";
+                echo "<br />";
+            }
+
+            function wp_tab3_callback() {
+                $tab3 = get_option('field_8');
+                echo "<span class='spacer' style='margin: 0 15px; '></span>";
+                echo "<input type='text' class='w-50' name='field_8' value = '" .  esc_html($tab3) . "'></input>";
+                echo "<br />";
+                echo "<br />";
+            } 
+
+            function wp_tab1_content_callback() {
+                $tab1_content = get_option('field_9');
+                echo "<span class='spacer' style='margin: 0 20px; '></span>";
+                echo "<textarea class='w-50' name='field_9' style='width: 50%;'>" . esc_textarea($tab1_content) . "</textarea>";
+                echo "<br />";
+                echo "<br />";
+            }
+
+            function wp_tab2_content_callback() {
+                $tab2_content = get_option('field_10');
+                echo "<span class='spacer' style='margin: 0 12px; '></span>";
+                echo "<textarea class='w-50' name='field_10' style='width: 50%;'>" . esc_textarea($tab2_content) . "</textarea>";
+                echo "<br />";
+                echo "<br />";
+            }
+
+            function wp_tab3_content_callback() {
+                $tab3_content = get_option('field_11');
+                echo "<span class='spacer' style='margin: 0 20px; '></span>";
+                echo "<textarea class='w-50' name='field_11' style='width: 50%;'>" . esc_textarea($tab3_content) . "</textarea>";
+                echo "<br />";
+                echo "<br />";
+            }
+
+
+
+
+             
 // which data getting form theme options page
 // notification text/url/url text
 // youtube video link
@@ -468,4 +1031,4 @@ function post_for_second_slider() {
 // * manage the tabs content
 
 
-//	===== second slider =====
+
