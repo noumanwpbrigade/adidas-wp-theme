@@ -47,7 +47,13 @@ get_header();
                 </div>
                 
         </div>
-        <!--  -->
+
+        <!-- Tab info section -->
+
+        <?php include 'tabinfo.php'; ?>
+
+        <!-- spacer -->
+        <div class="spacer" style="width: 100%; height: 40px;"></div>
       
 
 </div>

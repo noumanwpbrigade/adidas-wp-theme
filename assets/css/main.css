@@ -90,19 +90,48 @@ a:visited   {
 .top-nav    {
     width: 100vw;
     background-color: var(--bg-dark-color);
-    background-image: url('images/pattern-bg.png');
+    background-image: url('../images/pattern-bg.png');
     background-size: 100px;
 }
 .top-nav .container {
     justify-content: space-between;
+    align-items: center;
 }
 
-.btn-primary,
-.btn-secondary {
-    color: var(--primary-color);
+.menu-secondary-menu-container {
+    display: flex;
+    align-items: center;
+}
+
+.menu-secondary-menu-container ul {
+    padding: 15px 0 0 0;
+}
+.menu-secondary-menu-container ul li a {
     text-decoration: none;
+    text-transform: uppercase;
+    font-family: Oswald;
+    font-size: 16px;
+    font-weight: 600; 
+    padding: 0px 31px;
+    line-height: 35px;
+    line-height: normal;
 }
 
+.menu-secondary-menu-container ul li:first-child {
+    clip-path: polygon(15% 0, 100% 0%, 85% 100%, 0% 100%);
+    background-color: var(--bg-accent-color);
+    background-image: url('../images/pattern-bg.png');
+    background-size: cover;
+    padding: 10px 15px;
+}
+
+.menu-secondary-menu-container ul li {
+    clip-path: polygon(15% 0, 100% 0%, 85% 100%, 0% 100%);
+    background-color: rgb(8, 81, 45);
+    background-image: url('../images/pattern-bg.png');
+    background-size: cover;
+    padding: 10px 15px;
+}
 
 /* ----------------------------------------- */
 
@@ -693,6 +722,56 @@ footer > .container {
 .disclaimer .container {
     padding: 20px 0 ; 
 }
+
+
+/* Tab's section */
+
+.tabs-section {
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 20px;
+    background-color: var(--bg-accent-color);
+    background-image: url('../images/pattern-bg.png');
+}
+
+.tabs-section input[type='radio'] {
+    display: none;
+}
+
+.tabs-label {
+    padding: 10px 16px;
+    cursor: pointer;
+    font-family: Oswald;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .tabs-label {
+    margin-left: 15px;
+  }
+
+  .tabs-content {
+    order: 1;
+    width: 100%;
+    padding: 15px;
+    padding-bottom: 55px;
+    background-color: var(--bg-light-color);
+    background-image: url('../images/pattern-bg.png');
+    display: none;
+
+    font-family: Roboto;
+    font-size: 14px;
+  }
+
+  .tabs-radio:checked + .tabs-label {
+    clip-path: polygon(15% 1%, 100% 0%, 85% 100%, 0% 100%);
+    background-color: var(--bg-light-color);
+    background-image: url('../images/pattern-bg.png');
+  }
+
+  .tabs-radio:checked + .tabs-label + .tabs-content {
+    display: initial;
+  }
 
 
 

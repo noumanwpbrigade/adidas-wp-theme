@@ -23,49 +23,55 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 <header>
-            <div class="notification-bar" id="notiBar">
-                <div class="container">
-                    <?php 
-                    $value = get_option('field_1');
-                    echo esc_attr($value);  
-                    ?>
-                    <a href="<?php $url = get_option('field_2'); echo esc_attr($url);  ?>" class="green-a"> <?php $urltext = get_option('field_3'); echo esc_attr($urltext);  ?> </a>
-                    <div id="cross-btn" onclick="closenoti();"><img src="<?= get_template_directory_uri(); ?>/assets/images/x-mark.png" alt=""></div>
-                </div>
+    <!-- Notification Bar -->
+    <div class="notification-bar" id="notiBar">
+        <div class="container">
+            <?php 
+            $value = get_option('field_1');
+            echo esc_attr($value);  
+            ?>
+            <a href="<?php $url = get_option('field_2'); echo esc_attr($url);  ?>" class="green-a"> <?php $urltext = get_option('field_3'); echo esc_attr($urltext);  ?> </a>
+            <div id="cross-btn" onclick="closenoti();"><img src="<?= get_template_directory_uri(); ?>/assets/images/x-mark.png" alt=""></div>
+        </div>
+    </div>
+
+    <!-- Logo Bar  -->
+
+    <div class="top-nav">
+        <div class="container flex">
+            <div class="top-nav-logo">
+
+            <?php  if(has_custom_logo()){
+                    the_custom_logo();
+                    } else {
+                        ?>
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" alt="logo">
+            <?php } ?>
+
             </div>
-
-            <div class="top-nav">
-                <div class="container flex">
-                    <div class="top-nav-logo">
-
-                    <?php  if(has_custom_logo()){
-                            the_custom_logo();
-                            } else {
-                                ?>
-                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" alt="logo">
-                    <?php } ?>
-
-                    </div>
-                    <div class="top-nav-btns">
-                        <a href="#" class="btn btn-primary">membership</a>
-                        <a href="" class="btn btn-secondary">account</a>
-                    </div>
-                </div>
-            </div>
-
-            <nav>
-               <div class="container flex">
-                
+           
                 <?php
                     wp_nav_menu(array(
-                        'theme_location' => 'primary',
+                        'theme_location' => 'secondar'
                     ));
                 ?>
-                <form action="" method="post" class="nav-form">
-                    <input type="text" name="search-input" placeholder="SEARCH" class="search-input">
-                    <button type="submit" class="nav-btn"><img src="<?= get_template_directory_uri(); ?>/assets/images/search-icon.png" alt=""></button>
-                </form>
-               </div>
-            </nav>
+     
+        </div>
+    </div>
+
+    <nav>
+        <div class="container flex">
+        
+        <?php
+            wp_nav_menu(array(
+                'theme_location' => 'primary',
+            ));
+        ?>
+        <form action="" method="post" class="nav-form">
+            <input type="text" name="search-input" placeholder="SEARCH" class="search-input">
+            <button type="submit" class="nav-btn"><img src="<?= get_template_directory_uri(); ?>/assets/images/search-icon.png" alt=""></button>
+        </form>
+        </div>
+    </nav>
         
     </header>

@@ -4,6 +4,11 @@ register_nav_menus( array(
     'primary'   => __( 'Primary Menu', 'adidas' ),
 ) );
 
+// Secondary menu
+register_nav_menus(array(
+    'secondar' => __('secondary menu (Logo Bar)', 'adidas'),
+));
+
 
 // custom / default logo support 
 add_theme_support( 'custom-logo' );
@@ -925,7 +930,7 @@ if ( class_exists( 'WP_Skills_MetaBox_Events' ) ) {
              function wp_settings_cllback() {
                 // getting data from db register_setting('', '', $);
                 $value = get_option('field_1');
-                echo "<span class='spacer' style='margin: 0 15px; '></span>";
+                echo "<span class='spacer' style='margin: 0 55px; '></span>";
                 echo "<textarea class='w-50' name='field_1' style='width: 50%;'>" . esc_textarea($value) . "</textarea>";
                 echo "<br />";
                 echo "<br />";
@@ -935,7 +940,7 @@ if ( class_exists( 'WP_Skills_MetaBox_Events' ) ) {
 
              function wp_noti_url_cllback() {
                 $url = get_option('field_2');
-                echo "<span class='spacer' style='margin: 0 15px; '></span>";
+                echo "<span class='spacer' style='margin: 0 35px; '></span>";
                 echo "<input class='w-50' type='text' name='field_2' value='" . esc_attr($url) . "'  style='width: 50%;'> ";
                 echo "<br />";
                 echo "<br />";
@@ -943,32 +948,33 @@ if ( class_exists( 'WP_Skills_MetaBox_Events' ) ) {
 
              function wp_noti_url_text_cllback() {
                 $url_text = get_option('field_3');
-                echo "<span class='spacer' style='margin: 0 15px; '></span>";
+                echo "<span class='spacer' style='margin: 0 35px; '></span>";
                 echo "<input class='w-50' type='text' name='field_3' value='" . esc_attr($url_text) . "'  style='width: 50%;'> ";
                 echo "<br />";
                 echo "<br />";
                 echo "<hr />";
+                echo "<h3>Popup Video</h3>";
              }
 
              function wp_yt_url_cllback() {
                 $youtube_video = get_option('field_4');
-                echo "<span class='spacer' style='margin: 0 15px; '></span>";
+                echo "<span class='spacer' style='margin: 0 17px; '></span>";
                 echo "<input class='w-50' type='text' name='field_4' value='" . esc_attr($youtube_video) . "'  style='width: 50%;'> ";
                 echo "<br />";
                 echo "<br />";
                 echo "<hr />";
-                echo "<h3> Footer Disclaimer</h3>";
+                echo "<h3>Footer Disclaimer</h3>";
              }
 
              function wp_footer_disclaimer_callback() {
                 $disclaimer = get_option('field_5');
-                echo "<span class='spacer' style='margin: 0 15px; '></span>";
+                echo "<span class='spacer' style='margin: 0 20px; '></span>";
                 echo "<textarea class='w-50' name='field_5' style='width: 50%;'>" . esc_textarea($disclaimer) . "</textarea>";
                 // echo "<input type='text' class='w-50' name='field_5' value = '" .  esc_html($disclaimer) . "'></input>";
                 echo "<br />";
                 echo "<br />";
                 echo "<hr />";
-                echo "<h3> Manage  Tabs Content </h3>";
+                echo "<h3> Manage Tabs Content </h3>";
             }
 
              function wp_tab1_callback() {
@@ -1032,3 +1038,58 @@ if ( class_exists( 'WP_Skills_MetaBox_Events' ) ) {
 
 
 
+function load_events_ajax_handler() {
+    $args_post = array(
+        'posts_per_page' => 3,
+        'post_type'      => 'event_post',
+        'orderby'        => 'date',
+        'order'          => 'ASC',
+        'paged'          => $_POST['page'],
+    );
+
+    $query_posts = new WP_Query($args_post);
+
+    if ($query_posts->have_posts()) :
+        while ($query_posts->have_posts()) : $query_posts->the_post();
+            ?>
+            <div class="event-wrapper flex">
+                <div class="event-thumbnail">
+                    <?php if (has_post_thumbnail()) : ?>
+                        <a href="<?php the_permalink(); ?>">
+                            <?php the_post_thumbnail('thumbnail'); ?>
+                        </a>
+                    <?php endif; ?>
+                </div>
+
+                <div class="event-content flex">
+                    <div class="event-title">
+                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                    </div>
+                    <div class="event-dates ">
+                        <div class="event-year">
+                            <?php echo get_post_meta(get_the_ID(), 'event_date', true); ?>
+                        </div>
+
+                        <span class="event-s-time">
+                            <?php echo get_post_meta(get_the_ID(), 'event_s_time', true); ?>
+                        </span>
+
+                        <span> - </span>
+
+                        <span class="event-e-time">
+                            <?php echo get_post_meta(get_the_ID(), 'event_e_time', true); ?>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <?php
+        endwhile;
+
+        wp_reset_postdata();
+    endif;
+
+    die();
+}
+
+add_action('wp_ajax_load_events', 'load_events_ajax_handler');
+add_action('wp_ajax_nopriv_load_events', 'load_events_ajax_handler');
