@@ -33,11 +33,25 @@ function adidas_theme_scripts() {
     wp_enqueue_script('fancy-jquery', 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js', 1.0);
     wp_enqueue_style('fancy-stylesheet', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css', 1.0);
     wp_enqueue_script('fancy-js', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', array('fancy-jquery'), '3.5.7', true);
+    
+    // slick slider cdns
+    wp_enqueue_script('slick-main-JS', '//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', array('jQuery'), '1.8.1', true);
+    wp_enqueue_script('slick-JS-1', '//code.jquery.com/jquery-1.11.0.min.js', array('jQuery'), '1.11.0', true);
+    wp_enqueue_script('slick-JS-2', '//code.jquery.com/jquery-migrate-1.2.1.min.js', array('jQuery'), '1.2.1', true);
+    wp_enqueue_script('slick-JS-3', get_template_directory_uri() . '/assets/slick/slick/slick.min.js', array('jQuery'), '1.8.1', true);
+
+    wp_enqueue_style('slick-main', '//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css', array());
+    wp_enqueue_style('slick-1', get_template_directory_uri().'/assets/slick/slick/slick.css', array('slick-main'));
+    wp_enqueue_style('slick-2', get_template_directory_uri().'/assets/slick/slick/slick-theme.css', array('slick-main'));
+
+
+
+        
 }
 
 add_action('wp_enqueue_scripts', 'adidas_theme_scripts');
 
-// for custome slider
+// for custome hero slider
 
 function custom_slider() {
 	register_post_type('sliders', array(
@@ -49,7 +63,7 @@ function custom_slider() {
 		'has_archive' => true,
 		'rewrite' => array('slug' => 'sliders'),
 		'show_in_rest' => true,
-		'supports' => array('title', 'editor', 'author', 'thumbnail', 'comments', 'revisions', 'taxonomices' => array('category'))
+		'supports' => array('title', 'editor', 'author', 'thumbnail', 'comments', 'revisions', 'taxonomies' => array('category'))
 	));
 }
 
@@ -1036,60 +1050,3 @@ if ( class_exists( 'WP_Skills_MetaBox_Events' ) ) {
 
 // * manage the tabs content
 
-
-
-function load_events_ajax_handler() {
-    $args_post = array(
-        'posts_per_page' => 3,
-        'post_type'      => 'event_post',
-        'orderby'        => 'date',
-        'order'          => 'ASC',
-        'paged'          => $_POST['page'],
-    );
-
-    $query_posts = new WP_Query($args_post);
-
-    if ($query_posts->have_posts()) :
-        while ($query_posts->have_posts()) : $query_posts->the_post();
-            ?>
-            <div class="event-wrapper flex">
-                <div class="event-thumbnail">
-                    <?php if (has_post_thumbnail()) : ?>
-                        <a href="<?php the_permalink(); ?>">
-                            <?php the_post_thumbnail('thumbnail'); ?>
-                        </a>
-                    <?php endif; ?>
-                </div>
-
-                <div class="event-content flex">
-                    <div class="event-title">
-                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                    </div>
-                    <div class="event-dates ">
-                        <div class="event-year">
-                            <?php echo get_post_meta(get_the_ID(), 'event_date', true); ?>
-                        </div>
-
-                        <span class="event-s-time">
-                            <?php echo get_post_meta(get_the_ID(), 'event_s_time', true); ?>
-                        </span>
-
-                        <span> - </span>
-
-                        <span class="event-e-time">
-                            <?php echo get_post_meta(get_the_ID(), 'event_e_time', true); ?>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <?php
-        endwhile;
-
-        wp_reset_postdata();
-    endif;
-
-    die();
-}
-
-add_action('wp_ajax_load_events', 'load_events_ajax_handler');
-add_action('wp_ajax_nopriv_load_events', 'load_events_ajax_handler');
