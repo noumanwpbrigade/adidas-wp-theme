@@ -1,0 +1,251 @@
+
+
+.flex-column-row {
+    display: flex;
+    flex-direction: column;
+}
+
+@media screen and (max-width: 1010px) {
+
+    /* main */
+    .main > .container {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+    
+    
+    .else-sildebar {
+        width: 100%;
+    }
+    
+    
+    /* sidebar */
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .wraper {
+        max-width: 370px;
+        height: auto;
+        background-color: var(--bg-light-color);
+        background-image: url('../images/pattern-bg.png');
+        background-size: 100px;
+        margin: 5px auto;
+    }
+
+
+    /* social section */
+        .social-section {
+            margin-top: 15px;
+        }
+
+        .tweets {
+            width: 100%;
+        }
+
+        .fb-page {
+            width: 100%;
+        }
+    
+}
+
+
+/* mobile and tablet */
+
+@media screen and (max-width: 800px) {
+
+    /* logo bar */
+    .top-nav .container {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .top-nav-logo {
+        width: 100%;
+        padding: 15px 15px 0 15px;
+    }
+
+    .s-menu {
+        width: 100%;
+    }
+
+    .menu-secondary-menu-container ul {
+        width: 100vw;
+        margin: 0;
+        padding: 5 0 1px 0;
+    }
+
+    .menu-secondary-menu-container ul li:first-child {
+        clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
+        border-right: 2px solid #fff;
+
+    }
+    .menu-secondary-menu-container ul li {
+        width: 50%;
+        clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
+    }
+
+    /* nav */
+    nav {
+        display: none;
+    }
+    #burger > img {
+        display: block;
+    }
+        /* logo bar */
+        nav .container {
+            flex-direction: column-reverse;
+        }
+    
+        nav .menu-main-menu-container {
+            width: 100%;
+            padding: 15px;
+        }
+    
+        nav ul {
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+        }
+    
+        nav li {
+            width: 50%;
+            margin: 0;
+            margin-bottom: 10px; /* Adjust spacing between menu items */
+        }
+    
+        nav .container ul.menu > li:hover > a {
+            background-color: var(--bg-light-color);
+            clip-path: polygon(0 0, 100% 0%, 90% 100%, 0% 100%);
+        }
+    
+        /* Adjust sub-menu styles */
+        nav .sub-menu {
+            position: static;
+            display: none;
+            width: auto;
+            background-color: var(--bg-light-color);
+            padding: 15px;
+        }
+    
+        nav .sub-menu li {
+            width: 100%;
+            margin-right: 0;
+        }
+    
+        nav .sub-menu > li:has(ul)::before {
+            content: '';
+            display: none;
+        }
+    
+        nav li:hover > .sub-menu {
+            display: block;
+            position: static;
+        }
+    
+        nav li:hover > .sub-menu li:hover {
+            background-color: var(--bg-dark-color);
+        }
+    
+        /* Style the third-level sub-menu */
+        .sub-menu .sub-menu {
+            width: 100%;
+            top: 0;
+            left: 0;
+            margin-top: 10px; /* Adjust margin */
+        }
+    
+        .sub-menu .sub-menu li {
+            width: 100%;
+        }
+
+        .nav-form {
+            width: 100%;
+            margin: 5px 30px;
+        }
+        
+        nav form input[type="text"] {
+            width: 80%;
+        }
+        
+    /* -------------------------------------- */
+    /* -------------------------------------- */
+
+    #main {
+        padding-top: 149px;
+    }
+
+    /* hero slider */
+    .hero-container {
+        flex-direction: column-reverse;
+        gap: 40px;
+    }
+
+    .left-hero-section,
+    .right-hero-section {
+        width: 100%;
+    }
+
+    /* second slider */
+    .post-thumbnail img {
+        width: 90%;
+        height: 200px;
+        }
+
+    /* sticky post */
+    .sticky-post {
+        flex-direction: column-reverse;
+    }
+
+    .sticky-post-thumbnail {
+        width: 100%;
+    }
+
+    .sticky-post-thumbnail img {
+        width: 100%;
+        max-height: 300px;
+        clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);   
+    }
+
+    /* last three posts */
+    .post-item {
+        width: calc(50% - 10px);
+    }
+
+    /* footer */
+    .footer-menu,
+    .footer-links-widget,
+    .footer-logo-section {
+        width: 100%;
+    }
+
+}
+
+
+@media screen and (max-width: 600px) {
+
+
+
+    /* last three posts */
+    .post-item {
+        width: 100%;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

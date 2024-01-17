@@ -36,7 +36,7 @@ get_header();
 ?>
 
             <div class="slider-post-wraper">
-                <div class="post-thumbnail" style="color: #fff;">
+                <div class="post-thumbnail" >
                 <img src="<?php echo get_the_post_thumbnail_url($post_slider->ID, 'full'); ?>" alt="img">
                 </div>
                 <div class="post-title" style="color: #fff;"> 
@@ -70,7 +70,27 @@ get_header();
             infinite: true,
             speed: 300,
             slidesToShow: 4,
-            adaptiveHeight: true
+            adaptiveHeight: true,
+            responsive: [
+                    {
+                    breakpoint: 768,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 2
+                    }
+                    },
+                    {
+                    breakpoint: 480,
+                    settings: {
+                        arrows: false,
+                        centerMode: true,
+                        centerPadding: '40px',
+                        slidesToShow: 1
+                    }
+                    }
+                ]
             });
         });
 </script>

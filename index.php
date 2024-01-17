@@ -42,7 +42,7 @@ get_header();
                         <?php  include 'homepage.php'; ?>                      
                 </div>
 
-                <div class="sidebar">
+                <div class="sidebar flex">
                         <?php get_sidebar(); ?>
                 </div>
                 

@@ -72,7 +72,10 @@ $cat = get_categories();
         </div>
 </div>
 
-<!-- Date & Time -->
+<!--  -->
+
+
+    <!-- Date & Time -->
 <?php   ?>
 <div class="date-and-time">
 <div class="wraper">
@@ -96,7 +99,7 @@ $cat = get_categories();
             ?>
         </div>
     </div>
-</div>
+
 
 <!-- Newsletter -->
 <?php   ?>
@@ -111,6 +114,8 @@ $cat = get_categories();
             <input type="submit" class="btn-gravity-submit" value="Submit">
         </form>
     </div>
+</div>
+
 </div>
 
 

@@ -28,13 +28,17 @@
             </div>
 
             <div class="footer-links-widget"> 
+                
                 <h4>Important Links</h4>
 
+                <div class="footer-p-tag">
                 <?php 
                 if (is_active_sidebar('footer-links')) {
                     dynamic_sidebar('footer-links');
                 }
                 ?>
+                </div>
+              
             </div>
 
 

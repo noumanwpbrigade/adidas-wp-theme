@@ -7,7 +7,18 @@ function    closenoti() {
     notification.style.display = 'none';
 }
 
+// responsive navigation
 
+let burger = document.getElementById('burger');
+let menu = document.getElementById('nav-menu');
+
+burger.addEventListener('click', ()=>{
+    if (menu.style.display === 'none') {
+        menu.style.display = 'block'; 
+    } else {
+        menu.style.display = 'none';
+    }
+});
 
 
 // jQuery(function($) {

@@ -50,6 +50,16 @@ a:visited   {
 
 /* header */
 
+header {
+    position: fixed;
+    z-index: 11111;
+    background-color: #fff;
+}
+
+#main {
+    padding-top: 170px;
+}
+
 .notification-bar   {
     text-align: center;
     position:   relative;
@@ -98,6 +108,16 @@ a:visited   {
     align-items: center;
 }
 
+.top-nav-logo {
+    justify-content: space-between;
+}
+
+#burger > img {
+    width: 25px;
+    height: 25px;
+    display: none;
+}
+
 .menu-secondary-menu-container {
     display: flex;
     align-items: center;
@@ -143,81 +163,103 @@ nav .container {
 nav {
     width: 100vw;
     background-color: var(--bg-accent-color);
-    background-image: url('images/pattern-bg.png');
+    background-image: url('../images/pattern-bg.png');
     background-size: 100px;
     
 }
 
-nav a {
-    display: block;
-    padding: 15px;
-    color: #fff;
-    text-decoration: none;
+
+nav .flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-/*  first level */
-nav .container ul.menu {
-    display:flex;
+
+/* Style the main menu */
+nav ul {
+    list-style: none;
+    display: flex;
     margin: 0;
     padding: 0;
 }
 
-nav .container ul.menu > li {
+nav li {
     position: relative;
+    margin-right: 20px;
 }
-nav .container ul.menu > li > a {
+
+nav a {
+    text-decoration: none;
     text-transform: uppercase;
     color: #fff;
-    padding: 15px;
+    font-weight: bold;
+    padding: 10px;
+    display: block;
 }
 
-nav .container ul.menu > li:first-child {
-    background: var(--bg-light-color);
-    clip-path: polygon(10% 0, 100% 0%, 90% 100%, 0% 100%);
-}
-
-nav .container ul.menu > li:hover {
-    background: var(--bg-light-color);
-    clip-path: polygon(10% 0, 100% 0%, 90% 100%, 0% 100%);
-}
-
-
-/* second level */
-
-ul ul {
-    background: var(--bg-light-color);
+/* Style the sub-menus */
+nav .sub-menu {
+    width: 100%;
+    display: none;
     position: absolute;
     top: 100%;
-    left:  0;
-    display: none;
+    right: 0;
+    background-color: var(--bg-light-color);
+    background-image: url('../images/pattern-bg.png');
+    z-index: 1;
+    padding: 15px 0;
 }
 
-ul li:hover > ul {
+nav li:hover > .sub-menu {
     display: block;
 }
+nav li:hover > .sub-menu li {
+    width: 100%;
+ }
 
 
-ul ul li {
-    width: 170px;
+ nav .container ul.menu > li:hover > a {
+    background-color: var(--bg-light-color);
+    clip-path: polygon(10% 0, 100% 0%, 90% 100%, 0% 100%);
+    /* or */
+    /*transform: skew(-15deg); */
 }
-ul > ul > li > a {
-    width: 200px;
+
+/* ------------ */
+.sub-menu > li:has(ul) {
     position: relative;
-}
-
-/*  third leve*/
-
-ul ul ul  {
+  }
+  
+  .sub-menu > li:has(ul)::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-image: url('../images/cat-arrow.png');
+    background-repeat: no-repeat;
+    background-size: contain;
     position: absolute;
-    top: 70%;
-    left: 86%;
-    display: none;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+  }
+/* ------------ */
+nav li:hover > .sub-menu li:hover {
+    background-color: var(--bg-dark-color);
+    background-image: url('../images/pattern-bg.png');
 }
-ul  ul li:hover > ul {
-    display: block;
+
+/* Style the third-level sub-menu */
+.sub-menu .sub-menu {
+    width: 160px;
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+    margin-left: 0;
 }
 
-
-
+.sub-menu .sub-menu li {
+    width: 100%;
+}
 
 /* nav form */
 
@@ -229,9 +271,12 @@ ul  ul li:hover > ul {
 nav form input[type="text"] {
     background: transparent;
     border: none;
+    width: 125px;
 }
 
 .nav-btn {
+    margin: 0;
+    padding: 3px 7px 0 0;
     background-color: transparent;
     border: none;
 }
@@ -406,6 +451,8 @@ nav form input[type="text"] {
 
 .sidebar {
     width: calc(25% - 15px);
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 
@@ -454,6 +501,7 @@ nav form input[type="text"] {
 .post-thumbnail img {
     width: 144px;
     height: 144px;
+    margin: 0 auto;
     }
 
 .a-post-title{
@@ -510,7 +558,6 @@ nav form input[type="text"] {
 
 .sticky-post-thumbnail {
     width: 80%;
-    
 }
 
 .sticky-post-thumbnail img {
@@ -524,11 +571,13 @@ nav form input[type="text"] {
 /* last three post section */
 
 .last-post-wrapper {
+    width: 100%;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 .post-item {
-    width: calc(33.33% - 5px);
+    width: calc(33.33% - 10px);
     min-height: auto ;
     background-color: var(--bg-light-color);
     background-image: url('../images/pattern-bg.png');
@@ -593,25 +642,24 @@ nav form input[type="text"] {
 /* social section */
 
 .social-section {
+    flex-wrap: wrap;
     width: 100%;
     gap: 15px;
-    margin-top: 25px;
+    margin-top: 10px;
 }
 
 .tweets {
-    width: calc(50% - 7px);
+    width: calc(50% - 10px);
 }
 
 .fb-page {
-    width: calc(50% - 7px); 
-    /* height: 600px;   
-    overflow: hidden; */
+    width: calc(50% - 10px); 
 }
 
 .fb-page iframe  {
     width: 100% !important;
-    height: 400px;
-    margin-left: 40px;
+    height: 420px;
+    border-radius: 15px;
 }
 
 
@@ -633,10 +681,12 @@ nav form input[type="text"] {
 
 footer > .container {
     padding: 40px 0;
+    flex-wrap: wrap;
 }
 /* footer menu */
 .footer-menu {
     width: 33.33%;
+    text-align: center;
 }
 
 .footer-menu:first-line {
@@ -661,6 +711,10 @@ footer > .container {
 
 }
 
+.footer-menu .sub-menu {
+    display: none;
+}
+
 .footer-menu .menu-main-menu-container ul.menu li {
     margin-bottom: 10px;
 }
@@ -678,9 +732,14 @@ footer > .container {
 /* footer links widget */
 .footer-links-widget {
     width: 33.33%;
+    text-align: center;
 }
 
-.footer-links-widget > p {
+.footer-p-tag  {
+    display: inline-block;
+}
+
+.footer-p-tag > p {
     cursor: pointer;
 }
 .footer-links-widget h4,
@@ -689,14 +748,14 @@ footer > .container {
     font-size: 24px;
     font-weight: 500;
 }
-.footer-links-widget > p > a {
+.footer-p-tag > p > a {
     text-decoration: none;
     color: #fff;
     display: flex;
     align-items: center;
 }
 
-.footer-links-widget > p > a::before {
+.footer-p-tag > p > a::before {
     content: '';
     width: 15px;
     height: 15px;
@@ -823,7 +882,7 @@ footer > .container {
     background-color: var(--bg-light-color);
     background-image: url('../images/pattern-bg.png');
     background-size: 100px;
-    margin: 20px 0;
+    margin: 5px 0;
 }
 
 .title {

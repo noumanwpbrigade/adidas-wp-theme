@@ -22,7 +22,7 @@
 
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
-<header>
+<header style="position: fixed;">
     <!-- Notification Bar -->
     <div class="notification-bar" id="notiBar">
         <div class="container">
@@ -39,27 +39,34 @@
 
     <div class="top-nav">
         <div class="container flex">
-            <div class="top-nav-logo">
 
-            <?php  if(has_custom_logo()){
-                    the_custom_logo();
-                    } else {
-                        ?>
-                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" alt="logo">
-            <?php } ?>
+                <div class="top-nav-logo flex">
 
-            </div>
-           
+                <?php  if(has_custom_logo()){
+                        the_custom_logo();
+                        } else {
+                            ?>
+                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" alt="logo">
+                <?php } ?>
+                
+                <div id="burger">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/burger-icon.png" alt="">
+                </div>
+
+                </div>
+                
+                <div class="s-menu">
                 <?php
                     wp_nav_menu(array(
                         'theme_location' => 'secondar'
                     ));
                 ?>
-     
+                </div>
+    
         </div>
     </div>
 
-    <nav>
+    <nav id="nav-menu">
         <div class="container flex">
         
         <?php

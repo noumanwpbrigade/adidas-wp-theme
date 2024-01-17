@@ -19,16 +19,13 @@ add_theme_support( 'custom-logo' );
 function adidas_theme_scripts() {
     wp_enqueue_style('style', get_stylesheet_uri());
     wp_enqueue_style('main', get_template_directory_uri().'/assets/css/main.css', array());
+    wp_enqueue_style('responsive', get_template_directory_uri().'/assets/css/responsive.css', array('main'));
+
 	//	Fancybox and Jquery CDN
-    // <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
-    // <link rel="stylesheet" href="./plugins/jquery.fancybox.min.css">
 	wp_enqueue_style('fancy-box', get_template_directory_uri().'assets/plugins/jquery.fancybox.min.css', array('jQuery'));
 	wp_enqueue_script('jQuery', 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js');
-	
-    // <script src="./plugins/jquery.fancybox.min.js"></script>
-    // <script src="./plugins/fancyBox.js"></script>
-
     wp_enqueue_script('script-file', get_template_directory_uri().'/assets/js/script.js', array('jQuery'), 1.0, true);
+
 	// FancyBox
     wp_enqueue_script('fancy-jquery', 'https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js', 1.0);
     wp_enqueue_style('fancy-stylesheet', 'https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css', 1.0);
@@ -934,18 +931,12 @@ if ( class_exists( 'WP_Skills_MetaBox_Events' ) ) {
              } 
 
              add_action('admin_init', 'theme_register_settings'); // now setting is registered. Q: who to display on page
-?>
-        <!-- <style>
-            .w-50 {
-                width: 50%;
-            }
-        </style> -->
-<?php
+
              function wp_settings_cllback() {
                 // getting data from db register_setting('', '', $);
                 $value = get_option('field_1');
                 echo "<span class='spacer' style='margin: 0 55px; '></span>";
-                echo "<textarea class='w-50' name='field_1' style='width: 50%;'>" . esc_textarea($value) . "</textarea>";
+                echo "<textarea  name='field_1' style='width: 50%;'>" . esc_textarea($value) . "</textarea>";
                 echo "<br />";
                 echo "<br />";
 
