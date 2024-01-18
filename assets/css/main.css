@@ -572,7 +572,7 @@ nav form input[type="text"] {
 
 .sticky-content {
     padding: 30px 15px 15px 15px;
-    width: calc(50% - 5px);
+    width: 50%;
 }
 
 .sticky-content h3 {
@@ -589,7 +589,7 @@ nav form input[type="text"] {
 }
 
 .sticky-post-thumbnail {
-    width: calc(50% - 5px);
+    width: 50%;
 }
 
 .sticky-post-thumbnail a img {
