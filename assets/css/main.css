@@ -588,6 +588,7 @@ nav form input[type="text"] {
     font-size: 14px;
 }
 
+/* for git commit -m '' */
 .sticky-post-thumbnail {
     width: 50%;
 }
