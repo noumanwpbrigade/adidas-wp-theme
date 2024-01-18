@@ -11,7 +11,7 @@ register_nav_menus(array(
 
 
 // custom / default logo support 
-add_theme_support( 'custom-logo' );
+add_theme_support( 'custom-logo' ); // at the end
 
 
 // enqueue stylesheet and script code
@@ -1191,3 +1191,22 @@ function fetchResults(){
 
 <?php
 }
+
+
+// logo support
+function theme_custom_logo_support() {
+    add_theme_support('custom-logo', array(
+        'height'      => 100,
+        'width'       => 400,
+        'flex-width'  => true,
+        'flex-height' => true,
+    ));
+}
+
+add_action('after_setup_theme', 'theme_custom_logo_support');
+
+
+
+
+
+

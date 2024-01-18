@@ -41,11 +41,15 @@
         <div class="container flex">
 
                 <div class="top-nav-logo flex">
+                <?php 
+                $custom_logo_id = get_theme_mod('custom_logo');
+                $logo = wp_get_attachment_image_src($custom_logo_id, 'full');
 
-                
-                <?php  if(has_custom_logo()){
-                        the_custom_logo();
-                        } else {
+                if(has_custom_logo()){
+                    // the_custom_logo();
+                    echo '<a href="' . esc_url(home_url('/')) . '" rel="home"><img src="' . esc_url($logo[0]) . '" alt="' . get_bloginfo('name') . '"></a>';
+
+                } else {
                             ?>
                             <a href="<?php echo esc_url(home_url('/')); ?>">
                                 <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" alt="logo">
