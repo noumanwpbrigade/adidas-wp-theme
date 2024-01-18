@@ -156,11 +156,11 @@ header {
 
 /* ----------------------------------------- */
 
-nav .container {
+nav > .container {
     justify-content: space-between;
 }
 
-nav {
+nav#nav-menu{
     width: 100vw;
     background-color: var(--bg-accent-color);
     background-image: url('../images/pattern-bg.png');
@@ -279,6 +279,37 @@ nav form input[type="text"] {
     padding: 3px 7px 0 0;
     background-color: transparent;
     border: none;
+}
+
+#serach-permalink {
+    width: 100%;
+}
+
+#searchInput {
+    color: #fff;
+    outline: none;
+}
+
+.color-black {
+    color: #000;
+}
+.heading-404 {
+    font-size: 3rem;
+}
+.p-404 {
+    font-size: 1.75rem;
+}
+
+.image-404 {
+    width: 100%
+}
+
+.image-404 img {
+    width: 100%
+}
+
+.error-404 {
+    font-size: 4rem;
 }
 /* ----------------------------------------- */
 
@@ -560,7 +591,7 @@ nav form input[type="text"] {
     width: 80%;
 }
 
-.sticky-post-thumbnail img {
+.sticky-post-thumbnail a img {
     width: 100%;
     height: 100%;
     clip-path: polygon(0 0, 100% 0%, 100% 100%, 15% 100%);
@@ -588,10 +619,12 @@ nav form input[type="text"] {
     width: 100%;
     height: 162px;
     background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .latest-post-thumbnail a > img {
-    width: 100%;
-    height: 100%;
+    object-fit: contain;
 }
 
 .the-title,
@@ -896,6 +929,16 @@ footer > .container {
     font-weight: 500;
 }
 
+.previous-btn,
+.next-btn {
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
 .event-wrapper > div.flex {
     padding: 15px 0 6px 18px;
     gap: 8px;
@@ -970,9 +1013,10 @@ footer > .container {
 
 .more-events {
     width: 100%;
-    height: 50px;
+    height: auto;
     text-align: right;
     padding: 15px;
+    justify-content: space-between;
 }
 
 
@@ -1082,4 +1126,65 @@ footer > .container {
     width: 100%;
 }
 .btn-gravity-submit {
+}
+
+/* single.php  */
+
+.post-content p {
+    color: black;
+}
+
+.post-content p code {
+    color: #000;
+}
+
+.single-heading {
+    font-size: 2.75rem;
+}
+
+.post-thumbnail img {
+    min-width: 40%;
+    height: auto;
+}
+
+#datafetch ol li a {
+    color: black;
+}
+
+nav.navigation {
+    max-width: 1100px;
+    background-color: rgba(13,13,13,0.64)
+}
+
+#single-home-btn {
+    background-color: var(--bg-accent-color);
+    margin-bottom: 15px;
+    border-radius: 15px;
+    transition: box-shadow 0.5s ease-out;
+}
+
+#single-home-btn:hover {
+    box-shadow: 1px 1px 15px #000;
+}
+
+#single-home-btn a {
+    color: #fff;
+    text-decoration: none;
+    justify-content: space-between;
+    gap: 15px;
+    align-items: center;
+}
+
+li a {
+    color: white;
+}
+
+li a:visited,
+li a:hover,
+a:visited {
+    color: #fff !important;
+}
+
+#page-color-issue * {
+    color: #000;
 }

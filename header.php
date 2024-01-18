@@ -42,11 +42,14 @@
 
                 <div class="top-nav-logo flex">
 
+                
                 <?php  if(has_custom_logo()){
                         the_custom_logo();
                         } else {
                             ?>
-                            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" alt="logo">
+                            <a href="<?php echo esc_url(home_url('/')); ?>">
+                                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" alt="logo">
+                            </a>
                 <?php } ?>
                 
                 <div id="burger">
@@ -75,10 +78,12 @@
             ));
         ?>
         <form action="" method="post" class="nav-form">
-            <input type="text" name="search-input" placeholder="SEARCH" class="search-input">
+            <input type="text" name="search-input" id="searchInput" onkeyup="fetchResults()" placeholder="SEARCH" class="search-input">
             <button type="submit" class="nav-btn"><img src="<?= get_template_directory_uri(); ?>/assets/images/search-icon.png" alt=""></button>
         </form>
         </div>
     </nav>
+
+    
         
     </header>

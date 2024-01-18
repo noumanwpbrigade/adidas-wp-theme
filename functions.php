@@ -1041,3 +1041,153 @@ if ( class_exists( 'WP_Skills_MetaBox_Events' ) ) {
 
 // * manage the tabs content
 
+
+// Admin ajax on events post
+
+add_action( 'wp_footer', 'my_action_javascript' );
+
+function my_action_javascript() { ?>
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+
+            var page = 2;
+            var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
+            var post_count = jQuery('#append-wrapper').data('count');
+
+            // Next Button
+            jQuery('#next').click(function () {
+                var data = {
+                    'action': 'my_action', // on click an action goto my_action function
+                    'page': page
+                };
+
+                jQuery.post(ajaxurl, data, function (response) {
+                    // jQuery('#append-wrapper').append(response); 
+
+                    jQuery('#append-wrapper').html(response); // Replace content instead of appending
+                    page++;
+                });
+            });
+
+            // Previous Button
+            jQuery('#previous').click(function () {
+                if (page > 1) {
+                    page--;
+                    var data = {
+                        'action': 'my_action', // new function create krna hu ga
+                        'page': page
+                    };
+
+                    jQuery.post(ajaxurl, data, function (response) {
+                        jQuery('#append-wrapper').html(response);
+                    });
+                }
+            });
+        });
+    </script> <?php
+}
+
+// Then, set up a PHP function to handle the AJAX request.
+
+add_action( 'wp_ajax_my_action', 'my_action' );
+
+function my_action() {
+    $args_post = array(
+        'posts_per_page' => 3,
+        'paged' => $_POST['page'],
+        'post_type'      => 'event_post',
+        'orderby'        => 'date',
+        'order'          => 'ASC',
+    );
+
+    $query_posts = new WP_Query($args_post);
+
+    if ($query_posts->have_posts()) :
+        while ($query_posts->have_posts()) : $query_posts->the_post();
+            ?>
+            <div class="event-wrapper flex">
+                <div class="flex">
+                    <div class="event-thumbnail">
+                        <?php if (has_post_thumbnail()) : ?>
+                            <a href="<?php the_permalink(); ?>">
+                                <?php the_post_thumbnail('thumbnail'); ?>
+                            </a>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="event-content flex">
+                        <div class="event-title">
+                            <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                        </div>
+                        <div class="event-dates ">
+                            <div class="event-year">
+                                <?php echo get_post_meta(get_the_ID(), 'event_date', true); ?>
+                            </div>
+                            <span class="event-s-time">
+                                 <?php echo get_post_meta(get_the_ID(), 'event_s_time', true); ?>
+                             </span>
+                            <span> - </span>
+                            <span class="event-e-time">
+                                 <?php echo get_post_meta(get_the_ID(), 'event_e_time', true); ?>
+                             </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php
+        endwhile;
+        wp_reset_postdata();
+    endif;
+
+    wp_die();
+}
+
+
+// serach bar ajax function
+add_action('wp_ajax_data_fetch' , 'data_fetch');
+add_action('wp_ajax_nopriv_data_fetch','data_fetch');
+function data_fetch(){
+
+    $the_query = new WP_Query( array( 'posts_per_page' => 5, 's' => esc_attr( $_POST['keyword'] ), 'post_type' => 'post' ) );
+    if( $the_query->have_posts() ) :
+        echo "<ol>";
+        while( $the_query->have_posts() ): $the_query->the_post(); ?>
+                <li>
+                    <a class="serach-permalink" href="<?php echo esc_url( post_permalink() ); ?>"><?php the_title();?></a> <br>
+                </li>
+
+        <?php endwhile;
+        echo "</ol>";
+		wp_reset_postdata();  
+	else: 
+		echo '<h3>No Results Found</h3>';
+    endif;
+
+    die();
+}
+// add the ajax fetch js
+add_action( 'wp_footer', 'ajax_fetch' );
+function ajax_fetch() {
+?>
+<script type="text/javascript">
+function fetchResults(){
+	var keyword = jQuery('#searchInput').val();
+	if(keyword == ""){
+		jQuery('#datafetch').html("");
+	} else {
+		jQuery.ajax({
+			url: '<?php echo admin_url('admin-ajax.php'); ?>',
+			type: 'post',
+			data: { action: 'data_fetch', keyword: keyword  },
+			success: function(data) {
+				jQuery('#datafetch').html( data );
+			}
+		});
+	}
+    
+
+}
+</script>
+
+<?php
+}

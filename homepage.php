@@ -5,10 +5,12 @@
 
 wp_head();
 ?>
-
+    <div id="datafetch"></div>
 
 
     <?php    include 'second_post_slider.php';  ?>
+
+    
 
 
     <!-- Sticky Post -->
@@ -27,13 +29,15 @@ wp_head();
 
                         <div class="sticky-post flex">
                                 <div class="sticky-content">
-                                        <h3> <?php the_title(); ?> </h3>
+                                        <h3><a href="<?php the_permalink(); ?>" style="text-decoration: none;"><?php the_title(); ?></a>  </h3>
                                         <p> <?php the_excerpt(); ?> </p>
                                 </div>
                                 
                                 <?php if (has_post_thumbnail()) : ?>
                                 <div class="sticky-post-thumbnail">
-                                        <?php the_post_thumbnail('full'); ?>
+                                        <a href="<?php the_permalink(); ?>">
+                                                <?php the_post_thumbnail('full'); ?>
+                                        </a>
                                 </div>
                                 <?php endif; ?>
                         </div>

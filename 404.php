@@ -10,49 +10,22 @@
 get_header();
 ?>
 
-	<main id="primary" class="site-main">
-<?php  echo ""; ?>
-		<section class="error-404 not-found">
-			<header class="page-header">
-				<h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'adidas' ); ?></h1>
-			</header><!-- .page-header -->
+	<main id="primary" class="site-main" style="padding-top: 178px">
+	<div class="container" id="container-404">
 
-			<div class="page-content">
-				<p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'adidas' ); ?></p>
+	<h3 class="color-black heading-404">Sorry we could not find that page.</h3>
 
-					<?php
-					get_search_form();
-
-					the_widget( 'WP_Widget_Recent_Posts' );
-					?>
-
-					<div class="widget widget_categories">
-						<h2 class="widget-title"><?php esc_html_e( 'Most Used Categories', 'adidas' ); ?></h2>
-						<ul>
-							<?php
-							wp_list_categories(
-								array(
-									'orderby'    => 'count',
-									'order'      => 'DESC',
-									'show_count' => 1,
-									'title_li'   => '',
-									'number'     => 10,
-								)
-							);
-							?>
-						</ul>
-					</div><!-- .widget -->
-
-					<?php
-					/* translators: %1$s: smiley */
-					$adidas_archive_content = '<p>' . sprintf( esc_html__( 'Try looking in the monthly archives. %1$s', 'adidas' ), convert_smilies( ':)' ) ) . '</p>';
-					the_widget( 'WP_Widget_Archives', 'dropdown=1', "after_title=</h2>$adidas_archive_content" );
-
-					the_widget( 'WP_Widget_Tag_Cloud' );
-					?>
-
-			</div><!-- .page-content -->
-		</section><!-- .error-404 -->
+	<p class="color-black p-404">Search again or 
+		<a href="<?php echo esc_url(home_url('/')); ?>" class="link-404">Go back to home page</a>
+	</p>
+	
+	<div class="image-404">
+		<img src="<?php echo get_template_directory_uri() ;?>/assets/images/image404.png" alt="">
+	</div>
+	<span class="error-404 color-black">
+		ERROR: 404
+	</span>
+	</div>
 
 	</main><!-- #main -->
 
