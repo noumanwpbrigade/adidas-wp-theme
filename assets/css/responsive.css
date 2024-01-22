@@ -204,10 +204,13 @@
         width: 100%;
     }
 
-    .sticky-post-thumbnail img {
+    .sticky-post-thumbnail a img {
         width: 100%;
         max-height: 300px;
         clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);   
+    }
+    .sticky-content {
+    width: 100%;
     }
 
     /* last three posts */

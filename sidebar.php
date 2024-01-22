@@ -18,7 +18,7 @@
 <!-- Categories --> <!-- ============================================================================   -->
 <?php
 $cat = get_categories();
-
+// if($cat){ uncategorize ki waja sa if($condition) nahi chali
 ?>
 <div class="categories">
     <div class="wraper">
@@ -53,7 +53,7 @@ $cat = get_categories();
                         }
                         ?>
                     </li>
-                <?php } ?>
+                <?php }  ?>
             </ul>
         </div>
     </div>

@@ -713,7 +713,7 @@ if ( class_exists( 'WP_Skills_MetaBox_Events' ) ) {
 
  // setp 1. theme_setting_page() > add_menu_page() > there callback function theme_options_cllback()
  // setp 2. Register settings :
- // step 3. Add field
+ // step 3. Add field > callback
         function theme_setting_page() {
             add_menu_page(
                 __( 'Custom Menu Title', 'textdomain' ),

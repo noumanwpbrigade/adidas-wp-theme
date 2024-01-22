@@ -2,6 +2,7 @@
         <div class="container ">
                 <div class="tabs-section flex">
 
+                        <!-- first tab -->
                         <?php if(get_option('field_6')) {  ?>
                         <input type="radio" class="tabs-radio" name="tabs-info" id="tab1" checked>
                         <label for="tab1" class="tabs-label"><?php  $tab1 = get_option('field_6');  echo esc_html($tab1);  ?></label>
@@ -13,6 +14,7 @@
                         </div>
                         <?php } ?>
                         
+                        <!-- second tab -->
                         <?php if(get_option('field_7')) {  ?>
                         <input type="radio" class="tabs-radio" name="tabs-info" id="tab2">
                         <label for="tab2" class="tabs-label"><?php $tab2 = get_option('field_7'); echo esc_html($tab2);  ?></label>
@@ -23,7 +25,8 @@
                                 ?>
                         </div>
                         <?php } ?>
-                        
+
+                        <!-- third tab -->
                         <?php if(get_option('field_8')) {  ?>
                         <input type="radio" class="tabs-radio" name="tabs-info" id="tab3">
                         <label for="tab3" class="tabs-label"><?php $tab2 = get_option('field_8'); echo esc_html($tab2);  ?></label>

@@ -19,7 +19,7 @@ wp_head();
                 $args = array(
                         'posts_per_page' => 1,
                         'post__in' => $sticky,
-                        'ignore_sticky_posts' => 1
+                        'ignore_sticky_posts' => 1 // ya add krny k bad lates sticky show hu e thi
                         );
                 $query_sticky = new WP_Query($args);
 
@@ -57,7 +57,7 @@ wp_head();
                 'post_type'      => 'post',
                 'post_status'    => 'publish',
                 'orderby'        => 'date',
-                'order'          => 'DESC',
+                'order'          => 'DESC', // last wali 3
                 'ignore_sticky_posts' => 1, // Exclude sticky posts, error resolved 
                 );
 

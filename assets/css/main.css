@@ -73,7 +73,7 @@ header {
 }
 #notiBar .container a,
 .green-a {
-    color: var(--accent-color);
+    color: var(--accent-color) !important;
 }
 
 #notiBar .container a:hover,
@@ -599,7 +599,6 @@ nav form input[type="text"] {
     clip-path: polygon(0 0, 100% 0%, 100% 100%, 15% 100%);
 
 }
-
 
 /* last three post section */
 
