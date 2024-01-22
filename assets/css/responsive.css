@@ -12,12 +12,14 @@
         flex-wrap: wrap;
         gap: 5px;
     }
-    
+
+    .container  {
+        flex-wrap: wrap;
+    }
     
     .else-sildebar {
         width: 100%;
     }
-    
     
     /* sidebar */
     .sidebar {
