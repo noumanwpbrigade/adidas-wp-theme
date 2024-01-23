@@ -47,7 +47,7 @@
             <?php   // call the footer text widget
                 if(is_active_sidebar('footer-text')){
                     dynamic_sidebar('footer-text');
-                }   // if user does not design the footer text widget then display this on footer right.
+                }  // if user does not design the footer text widget then display this on footer right.
                 else {
                     if(has_custom_logo()){
                     the_custom_logo();

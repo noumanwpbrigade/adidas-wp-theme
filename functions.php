@@ -40,9 +40,6 @@ function adidas_theme_scripts() {
     wp_enqueue_style('slick-main', '//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css', array());
     wp_enqueue_style('slick-1', get_template_directory_uri().'/assets/slick/slick/slick.css', array('slick-main'));
     wp_enqueue_style('slick-2', get_template_directory_uri().'/assets/slick/slick/slick-theme.css', array('slick-main'));
-
-
-
         
 }
 
@@ -1209,4 +1206,34 @@ add_action('after_setup_theme', 'theme_custom_logo_support');
 
 
 
+
+// Add Shortcode
+// Create Shortcode wpb_link
+// Shortcode: [wpb_link url="https://wp-skills.com/tools/shortcode-generator" title="terms and conditions"]
+
+function create_wpb_link_shortcode($atts) {
+  
+    // Attributes
+    $atts = shortcode_atts(
+      array(
+        'url'   => 'https://wp-skills.com/tools/shortcode-generator',
+        'title' => 'terms and conditions'
+      ),
+      $atts,
+      'wpb_link'
+    );
+    
+    // Attributes in var
+    $url   = $atts['url'];
+    $title = $atts['title'];
+  
+    // Your Code
+    $output = "<a href='" . esc_url($url) . "'>" . esc_html($title) . "</a>";
+    return $output;
+  }
+  
+add_shortcode('wpb_link', 'create_wpb_link_shortcode');
+
+
+add_filter('widget_text', 'do_shortcode');
 
