@@ -1207,33 +1207,5 @@ add_action('after_setup_theme', 'theme_custom_logo_support');
 
 
 
-// Add Shortcode
-// Create Shortcode wpb_link
-// Shortcode: [wpb_link url="https://wp-skills.com/tools/shortcode-generator" title="terms and conditions"]
 
-function create_wpb_link_shortcode($atts) {
-  
-    // Attributes
-    $atts = shortcode_atts(
-      array(
-        'url'   => 'https://wp-skills.com/tools/shortcode-generator',
-        'title' => 'terms and conditions'
-      ),
-      $atts,
-      'wpb_link'
-    );
-    
-    // Attributes in var
-    $url   = $atts['url'];
-    $title = $atts['title'];
-  
-    // Your Code
-    $output = "<a href='" . esc_url($url) . "'>" . esc_html($title) . "</a>";
-    return $output;
-  }
-  
-add_shortcode('wpb_link', 'create_wpb_link_shortcode');
-
-
-add_filter('widget_text', 'do_shortcode');
 
