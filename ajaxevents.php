@@ -17,10 +17,18 @@ get_header();
             'post_type'      => 'event_post',
             'orderby'        => 'date',
             'order'          => 'ASC',
+            'meta_query'     => array(
+                array(
+                    'key'     => 'event_date',
+                    'value'   => date('Y-m-d'),
+                    'compare' => '>=',
+                    'type'    => 'DATE',
+                ),
+            ),
         );
 
         $query_posts = new WP_Query($args_post0);
-        echo $query_posts->found_posts;
+        // echo $query_posts->found_posts;
 
         $args_post = array(
             'posts_per_page' => 3,
@@ -28,11 +36,19 @@ get_header();
             'post_type'      => 'event_post',
             'orderby'        => 'date',
             'order'          => 'ASC',
+            'meta_query'     => array(
+                array(
+                    'key'     => 'event_date',
+                    'value'   => date('Y-m-d'),
+                    'compare' => '>=',
+                    'type'    => 'DATE',
+                ),
+            ),
         );
 
         $query_posts = new WP_Query($args_post);
         ?>
-        <div id="append-wrapper" data-count="<?php echo ceil($query_posts->found_posts / 3); ?>"> <!-- wrap if & while loop in a wrapper > after this wrapper create buttons-->
+        <div id="append-wrapper" data-count="<?php echo ceil($query_posts->found_posts / 3); ?>">
             <?php
 
             if ($query_posts->have_posts()) :
@@ -74,14 +90,17 @@ get_header();
                 echo "</div>";
             endif;
             ?>
-        </div> <!-- close here > then create buttons or form -->
+        </div>
         <div class="more-events flex">
             <div class="events-btn">
-                <button id="previous" class="previous-btn" style="display: none;"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/pagination-arrow-left.png" alt="prev"></button>
-                <button id="next" class="next-btn"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/pagination-arrow-right.png" alt="next"></button>
+                <button id="previous" data-page="1" class="previous-btn">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/pagination-arrow-left.png" alt="prev">
+                </button>
+                <button id="next" data-page="2" class="next-btn">
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/pagination-arrow-right.png" alt="next">
+                </button>
             </div>
-            <a href="<?php ?>">More Events</a>
+            <a href="<?php echo get_post_type_archive_link('event_post'); ?>">More Events</a>
         </div>
     </div>
 </div>
-

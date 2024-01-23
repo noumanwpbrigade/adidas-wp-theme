@@ -1040,29 +1040,25 @@ if ( class_exists( 'WP_Skills_MetaBox_Events' ) ) {
 
 
 // Admin ajax on events post
-
 add_action( 'wp_footer', 'my_action_javascript' );
 
 function my_action_javascript() { ?>
     <script type="text/javascript">
         jQuery(document).ready(function($) {
-
             var page = 2;
             var ajaxurl = "<?php echo admin_url('admin-ajax.php'); ?>";
-            var post_count = jQuery('#append-wrapper').data('count');
 
             // Next Button
             jQuery('#next').click(function () {
                 var data = {
-                    'action': 'my_action', // on click an action goto my_action function
+                    'action': 'my_action',
                     'page': page
                 };
 
                 jQuery.post(ajaxurl, data, function (response) {
-                    // jQuery('#append-wrapper').append(response); 
-
-                    jQuery('#append-wrapper').html(response); // Replace content instead of appending
+                    jQuery('#append-wrapper').html(response);
                     page++;
+                    updateButtonAttributes();
                 });
             });
 
@@ -1071,22 +1067,27 @@ function my_action_javascript() { ?>
                 if (page > 1) {
                     page--;
                     var data = {
-                        'action': 'my_action', // new function create krna hu ga
+                        'action': 'my_action',
                         'page': page
                     };
 
                     jQuery.post(ajaxurl, data, function (response) {
                         jQuery('#append-wrapper').html(response);
+                        updateButtonAttributes();
                     });
                 }
             });
-        });
-    </script> <?php
-}
 
-// Then, set up a PHP function to handle the AJAX request.
+            function updateButtonAttributes() {
+                jQuery('#previous').data('page', Math.max(1, page - 1));
+                jQuery('#next').data('page', page + 1);
+            }
+        });
+    </script>
+<?php }
 
 add_action( 'wp_ajax_my_action', 'my_action' );
+add_action( 'wp_ajax_nopriv_my_action', 'my_action' );
 
 function my_action() {
     $args_post = array(
@@ -1095,6 +1096,14 @@ function my_action() {
         'post_type'      => 'event_post',
         'orderby'        => 'date',
         'order'          => 'ASC',
+        'meta_query'     => array(
+            array(
+                'key'     => 'event_date',
+                'value'   => date('Y-m-d'),
+                'compare' => '>=',
+                'type'    => 'DATE',
+            ),
+        ),
     );
 
     $query_posts = new WP_Query($args_post);
@@ -1121,12 +1130,12 @@ function my_action() {
                                 <?php echo get_post_meta(get_the_ID(), 'event_date', true); ?>
                             </div>
                             <span class="event-s-time">
-                                 <?php echo get_post_meta(get_the_ID(), 'event_s_time', true); ?>
-                             </span>
+                                <?php echo get_post_meta(get_the_ID(), 'event_s_time', true); ?>
+                            </span>
                             <span> - </span>
                             <span class="event-e-time">
-                                 <?php echo get_post_meta(get_the_ID(), 'event_e_time', true); ?>
-                             </span>
+                                <?php echo get_post_meta(get_the_ID(), 'event_e_time', true); ?>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -1138,6 +1147,8 @@ function my_action() {
 
     wp_die();
 }
+// Admin ajax on events post end
+
 
 
 // serach bar ajax function

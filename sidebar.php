@@ -10,9 +10,9 @@
  get_header();
 ?>
 <!-- EVENTS -->
-<?php    include 'allevents.php'; ?> <!-- Method 1 -->
+<?php    // include 'allevents.php'; ?> <!-- Method 1 -->
 
-<?php    // include 'ajaxevents.php'; ?> <!-- Method 2 -->
+<?php    include 'ajaxevents.php'; ?> <!-- Method 2 -->
 <!--     // Try best to add second prefered method but not complete.  -->
 
 <!-- Categories --> <!-- ============================================================================   -->

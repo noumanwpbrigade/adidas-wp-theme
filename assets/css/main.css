@@ -910,7 +910,8 @@ footer > .container {
 
 /* sidebar - section */
 
-.wraper {
+.wraper,
+.wrapper {
     width: 255px;
     height: auto;
     background-color: var(--bg-light-color);
