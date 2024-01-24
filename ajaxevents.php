@@ -28,6 +28,7 @@ get_header();
         );
 
         $query_posts = new WP_Query($args_post0);
+        // for showing all post 
         // echo $query_posts->found_posts;
 
         $args_post = array(
@@ -35,7 +36,7 @@ get_header();
             'paged' => 1,
             'post_type'      => 'event_post',
             'orderby'        => 'date',
-            'order'          => 'ASC',
+            'order'          => 'DESC',
             'meta_query'     => array(
                 array(
                     'key'     => 'event_date',

@@ -21,7 +21,7 @@ get_header();
             $query_posts = new WP_Query($args_post);
 
             if ($query_posts->have_posts()) :
-                echo "<div class='event_slider' data-slick='{\"slidesToShow\": 3, \"slidesToScroll\": 3, \"vertical\": true, \"verticalSwiping\": true}'>";
+                echo "<div class='event_slider_2490' data-slick='{\"slidesToShow\": 3, \"slidesToScroll\": 3, \"vertical\": true, \"verticalSwiping\": true}'>";
                 while ($query_posts->have_posts()) : $query_posts->the_post();
                 ?>
                 <div class="event-wrapper flex">
@@ -67,7 +67,7 @@ get_header();
 
 <script>
     jQuery(document).ready(function($) {
-        $('.event_slider').slick({
+        $('.event_slider_2490').slick({
             dots: true,
             infinite: true,
             speed: 300,

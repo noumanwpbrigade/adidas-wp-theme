@@ -412,26 +412,26 @@ function post_for_second_slider() {
   
 	// Set UI labels for Custom Post Type
 		$labels = array(
-			'name'                => _x( 'post for second slider', 'Post Type General Name', 'twentytwentyone' ),
-			'singular_name'       => _x( 'Movpost for second sliderie', 'Post Type Singular Name', 'twentytwentyone' ),
-			'menu_name'           => __( 'post for second slider', 'twentytwentyone' ),
-			'parent_item_colon'   => __( 'Parent post for second slider', 'twentytwentyone' ),
-			'all_items'           => __( 'All post for second slider', 'twentytwentyone' ),
-			'view_item'           => __( 'View post for second slider', 'twentytwentyone' ),
-			'add_new_item'        => __( 'Add New post for second slider', 'twentytwentyone' ),
-			'add_new'             => __( 'Add New', 'twentytwentyone' ),
-			'edit_item'           => __( 'Edit post for second slider', 'twentytwentyone' ),
-			'update_item'         => __( 'Update post for second slider', 'twentytwentyone' ),
-			'search_items'        => __( 'Search post for second slider', 'twentytwentyone' ),
-			'not_found'           => __( 'Not Found', 'twentytwentyone' ),
-			'not_found_in_trash'  => __( 'Not found in Trash', 'twentytwentyone' ),
+			'name'                => _x( 'post for second slider', 'Post Type General Name', 'adidas' ),
+			'singular_name'       => _x( 'Movpost for second sliderie', 'Post Type Singular Name', 'adidas' ),
+			'menu_name'           => __( 'post for second slider', 'adidas' ),
+			'parent_item_colon'   => __( 'Parent post for second slider', 'adidas' ),
+			'all_items'           => __( 'All post for second slider', 'adidas' ),
+			'view_item'           => __( 'View post for second slider', 'adidas' ),
+			'add_new_item'        => __( 'Add New post for second slider', 'adidas' ),
+			'add_new'             => __( 'Add New', 'adidas' ),
+			'edit_item'           => __( 'Edit post for second slider', 'adidas' ),
+			'update_item'         => __( 'Update post for second slider', 'adidas' ),
+			'search_items'        => __( 'Search post for second slider', 'adidas' ),
+			'not_found'           => __( 'Not Found', 'adidas' ),
+			'not_found_in_trash'  => __( 'Not found in Trash', 'adidas' ),
 		);
 		  
 	// Set other options for Custom Post Type
 		  
 		$args = array(
-			'label'               => __( 'post for second slider', 'twentytwentyone' ),
-			'description'         => __( 'post for second slider news and reviews', 'twentytwentyone' ),
+			'label'               => __( 'post for second slider', 'adidas' ),
+			'description'         => __( 'post for second slider news and reviews', 'adidas' ),
 			'labels'              => $labels,
 			// Features this CPT supports in Post Editor
 			'supports'            => array( 'title', 'editor', 'excerpt', 'thumbnail', 'comments', 'revisions', 'custom-fields', ),
