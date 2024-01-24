@@ -1,66 +1,54 @@
 === adidas ===
+**Top Notification:**
 
-**Top  notification**: 
-
-A theme option menu page is provided to manage the top notification.
-
-Here user can put the text for notification (2) Put Link for Notification (3) text for link
+Theme options include a dedicated page for managing the top notification. Users can input text for the notification, provide a link, and set text for the link.
 
 **Logo Bar:**
-Log bar contain a logo and secondary menu
+
+The logo bar features a logo and secondary menu. Clicking on the logo directs the user to the home page.
 
 **Navigation Menu:**
 
-User can manage the navigation menu in admin dashboard and search form display on right of this menu.
+Users can customize the navigation menu in the admin dashboard. A search form is displayed to the right of the menu.
 
-**Hero section:**
+**Hero Section:**
 
-Hero section is custom post type named slick slider. User create the post and the post will come in the hero slider 
- And the popup video button gives the link for pop in theme option menu page.
-	
-**Main section:**
+The hero section utilizes a custom post type named slick slider. Users create posts, which then appear in the hero slider. The theme option menu page allows users to set a link for the popup video button.
 
-Main section divided into two parts one in sidebar and the other remaining area.
+**Main Section:**
 
-**Side bar:**
+The main section is divided into a sidebar and the remaining area.
 
-Sidebar contains (1) Events (2) Categories (3) Weather (4) Date and time (5) Newsletter form
+**Sidebar:**
 
-**The reaming part of sidebar contains:**
+The sidebar includes Events, Categories, Weather, Date and time, and a Newsletter form.
 
-(1)	**Custom post type name: ‘post for  second slider’**
-This section display the all post in the form of slider, at a time 4 slides show at front page.
-The post featured image and title show in this slider slides and on click the detail of post opened.
+**Remaining Part of Sidebar:**
 
-(2) **Sticky post section:**
-This section display the lattes sticky post title, description and featured image in skewed form display and only lattes sticky post will display. This section show only one post. 
+1. **Custom Post Type (Second Slider):**
+   Displays posts in a slider format, showing four slides at a time. Clicking on a slide reveals post details.
 
-(3)	**Show last 3 posts:**
-Only lattes 3 post show here with featured image, title, description and read more button.
+2. **Sticky Post Section:**
+   Displays the latest sticky post title, description, and featured image in a skewed form. Only the latest sticky post is shown.
 
+3. **Show Last 3 Posts:**
+   Displays the latest three posts with featured images, titles, descriptions, and read more buttons.
 
-(4) **Widget Area:**
-This area display the widgets named: Lattes Tweets (Embed your twitter here) and Face book page.  User simply click on appearance > Widgets > select widget > click on plus icon of name add block > search customer html Past if ram of face book page and tweets. 
+4. **Widget Area:**
+   Shows widgets for Latest Tweets (Twitter) and Facebook Page. Users can easily manage these widgets in the Appearance > Widgets section.
 
+   Facebook Page Development: [Facebook Developers](https://developers.facebook.com/docs/plugins/page-plugin/)
+   
+   Twitter Frame Development: [Twitter Publish](https://publish.twitter.com/?query=https%3A%2F%2Ftwitter.com%2Fwpbrigade&widget=Timeline)
 
-For developing face book frame follow below link: 
-https://developers.facebook.com/docs/plugins/page-plugin/
-
-For developing tweets frame follow below link: 
-https://publish.twitter.com/?query=https%3A%2F%2Ftwitter.com%2Fwpbrigade&widget=Timeline
-
-
-(5)	**Tab info section:**
-This is tab info section that is managed through theme options page. User can put the heading and content of tabs.
-
+5. **Tab Info Section:**
+   A tab info section managed through theme options allows users to input headings and content for tabs.
 
 **Footer:**
 
-In footer there are three widgets areas:
-Named: (1) Footer Menu widget (2) Footer Links (3) Footer logo & text area 
-
+The footer comprises three widget areas: Footer Menu, Footer Links, and Footer Logo & Text.
 
 **Disclaimer:**
 
- At the end there is section for disclaimer the disclaimer text managed in the theme option page. 
+The theme includes a disclaimer section where users can manage the disclaimer text in the theme options page.
 
